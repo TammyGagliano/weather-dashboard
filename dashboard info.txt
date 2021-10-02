@@ -1,0 +1,23 @@
+// Weather dashboard 
+
+//The open weather API key 
+
+
+//Add a search bar and button 
+// The history will need to be an array that has objects 
+// you will get first and then setitem()
+// the search bar will need to have a blank array
+//Search a city and it be added to local storage 
+//it needs display in the column in descending order 
+
+
+// Find an API that will display this information
+//When I search for city it will display in first section City with date and weather icon, Temp, Wind, Humidy, UV Index
+//Consider using an object to pull this information wind, etc. 
+// UV index should stand out 
+
+
+// Find an API that will display this information
+//Consider using an object to pull this information wind, etc. 
+//Need the 5 day forecast to display on a card in the second section that includes Date, icon, temp, wind, humidity 
+//This will need to be pulled dynamically
