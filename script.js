@@ -10,7 +10,7 @@ var UV = document.getElementById("UV-index");
 var clearHistory = document.getElementById('clear-history');
 var forecastFiveDay = document.getElementById('forecast');
 var icon = document.getElementById("weather-icon");
-//var ___ = document.getElementById("fiveday-header");
+var cityName = document.getElementById("city-name")
 
 
 // Assigning a unique API to a variable
@@ -22,15 +22,13 @@ var displayName = "";
 function displayCurrentWeather (current) {
     console.log('Display current weather', current);
   //new Date(current.dt*1000);
-    cityName.innerText = 'displayName' + ' ' + moment().format(" MM/DD/YYYY");  //IMPORT Moment Library
+    //cityName.innerText = 'displayName' + ' ' + moment().format(" MM/DD/YYYY");  //IMPORT Moment Library
     document.getElementById('temperature').innerHTML = "Temperature: " + current.temp + 'F';
     document.getElementById('humidity').innerHTML = "Humidity: " + current.humidity + '%';
     document.getElementById('wind-speed').innerHTML = "Wind Speed: " + current.wind_speed + 'MPH';
     document.getElementById('UV-index').innerHTML = "UV Index: " + current.uvi;
     document.getElementById("weather-icon").setAttribute('src', "http://openweathermap.org/img/wn/"+ current.weather[0].icon + "@2x.png");
-    
     //console.log(current.uvi);
-    
 };
 
 // Get UV Index 
@@ -43,8 +41,13 @@ function displayCurrentWeather (current) {
 function fiveDayForecast (daily) {
   
   for (i=0; i < 5; i++) {
+    //document.getElementById('day' + i).children[0].innerHTML= moment().format(" MM/DD/YYYY");
+    document.getElementById('day' + i).children[1].innerHTML= 
+      "<img src='" + "http://openweathermap.org/img/wn/"+ daily[0].weather[0].icon + "@2x.png" + "'>";
     document.getElementById('day' + i).children[2].innerHTML= daily[i].temp.day;
-    console.log(daily[i].temp.day);
+    document.getElementById('day' + i).children[3].innerHTML= daily[i].humidity;
+    
+    // console.log(daily[i].temp.day);
     
     
   }
@@ -52,18 +55,21 @@ function fiveDayForecast (daily) {
 
 // Save history from local storage 
 
-var saveCity = function(cityName) {
+var saveCity = function() {
+  var enterCity = document.getElementById("enter-city").value;
+  if (localStorage.getItem('City')  ) {
+    localStorage.setItem("City", localStorage.getItem('City') + ',' + enterCity);
+  } else {
+    localStorage.setItem("City", enterCity);
+  }
+
   
-
-  localStorage.setItem("Grabbing city name and storing", JSON.stringify(cityName));
 }
-
-
 
 //EVENT LISTENERS
 //set up event listener on the search button when enter a city
-
 searchBox.addEventListener("click", function () {
+  saveCity()
   fetch(
     "https://api.openweathermap.org/data/2.5/weather?q=" +
       enterCity.value +
