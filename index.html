@@ -18,7 +18,7 @@
     </div>
 
     <!-- Start container -->
-    <div class="container-fluid">
+    <div class="container-fluid sidebar">
         <div class="row">
             <div class="col-lg-3 bg-light pt-3 pb-3">
                 <h2 class="mt-1">Search for a City:</h2>
@@ -30,6 +30,7 @@
                         </button>
                     </div>
                 </div>
+                <button class="btn btn-primary mb-3" type="button" id="clear-history">Clear history</button>
                 <form id="history"></form>
             </div>
 
@@ -44,28 +45,64 @@
                 <div class="row mr-0">
                     <div class="col-lg-11 card m-3 d-none" id="today-weather">
                         <div class="card-body">
-                            <h3 id="city-name" class="city-name align-middle"></h3>
-                            <img id="picture" alt="">
-                            <p id="temperature"></p>
-                            <p id="humidity"></p>
-                            <p id="wind-speed"></p>
-                            <p id="UV-index"></p>
+                            <h2 id="city-name" class="city-name align-middle"></h2>
+                            <h3 id="date-display"></h3>
+                            <img id="weather-icon" alt="weather icon">
+                            <p id="temperature">Temperature: </p>
+                            <p id="humidity">Humidity: </p>
+                            <p id="wind-speed">Wind speed: </p>
+                            <p id="UV-index">UV-Index: </p>
                         </div>
                     </div>
                 </div>
 
             <!-- Start 5 day weather forecast -->    
-                <div class="row d-none" id="fiveday-header">
-                    <div class="col-12">
-                        <h3>5-Day Forecast</h3>
+            <div class="row d-none" id="fiveday-header">
+                <div class="col-12 card">
+                    <div class="card-body">
+                        <h2 id="cityName"></h2>
+                        <p id="temp"></p>
+                        <p id="humid"></p>
+                        <p id="windSpeed"></p>
+                        <p id="uvIndex"></p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
+                <div class="card text-left" id="forecast">
+                    <div class="card-body">
+                        <h4 class="card-title">5-Day Forecast</h4>
+                    </div>
+                </div>
+                <div class="row days">
+                    <div class="lone-day" id="day0">
+                        <div class="date"></div>
+                        <div class="icon"></div>
+                        <div class="temp"></div>
+                        <div class="humid"></div>
+                    </div>
+                    <div class="lone-day" id="day1">
+                        <div class="date"></div>
+                        <div class="icon"></div>
+                        <div class="temp"></div>
+                        <div class="humid"></div>
+                    </div>
+                    <div class="lone-day" id="day2">
+                        <div class="date"></div>
+                        <div class="icon"></div>
+                        <div class="temp"></div>
+                        <div class="humid"></div>
+                    </div>
+                    <div class="lone-day" id="day3">
+                        <div class="date"></div>
+                        <div class="icon"></div>
+                        <div class="temp"></div>
+                        <div class="humid"></div>
+                    </div>
+                    <div class="lone-day" id="day4">
+                        <div class="date"></div>
+                        <div class="icon"></div>
+                        <div class="temp"></div>
+                        <div class="humid"></div>
+                    </div>
                 </div>
             </div>
         </div>
