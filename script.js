@@ -22,7 +22,6 @@ function displayCurrentWeather(current) {
   console.log("Display current weather", current);
   document.getElementById("city-name").innerHTML =
     +" " + new Date(current.dt * 1000).toLocaleString();
-  //cityName.innerText = "displayName" + " " + new Date(current.dt * 1000).toLocaleString();
   document.getElementById("temperature").innerHTML =
     "Temperature: " + current.temp + "F";
   document.getElementById("humidity").innerHTML =
@@ -61,7 +60,7 @@ function displayCurrentWeather(current) {
 
 function fiveDayForecast(daily) {
   for (i = 0; i < 5; i++) {
-    document.getElementById('day' + i).children[0].innerHTML= +" " + new Date(daily.dt * 1000).toLocaleString();;
+    //document.getElementById('day' + i).children[0].innerHTML= daily[i].dt * 1000;
     document.getElementById("day" + i).children[1].innerHTML =
       "<img src='" +
       "http://openweathermap.org/img/wn/" +
