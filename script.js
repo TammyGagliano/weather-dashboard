@@ -36,26 +36,31 @@ function displayCurrentWeather(current) {
       "http://openweathermap.org/img/wn/" + current.weather[0].icon + "@2x.png"
     );
   //console.log(current.uvi);
-}
+
 
 // Get UV Index
 // When UV Index is good, shows green, when ok shows yellow, when bad shows red
 
-//var lat = data.coord.lat;
-//var lon = data.coord.lon;
-//  if (data[0].value < 4) {
-//    UVIndex.setAttribute("class", "badge badge-success");
-//  } else if (data[0].value < 8) {
-//    UVIndex.setAttribute("class", "badge badge-warning");
-//  } else {
-//    UVIndex.setAttribute("class", "badge badge-danger");
-//  }
-//  console.log(data[0].value);
-//  UVIndex.innerHTML = data[0].value;
-//  uvIndex.innerHTML = "UV Index: ";
-//  uvIndex.append(UVIndex);
+var uvIndex = document.querySelector('#UV-index')
+var currentUvi = current['uvi'];
+uvIndex.textContent = current.uvi;
 
-//var forecastDate = moment().format(" MM/DD/YYYY");
+switch (true) {
+  case (currentUvi <= 2):
+    uvIndex.className = 'badge badge-success';
+      break;
+  case (currentUvi <= 5):
+    uvIndex.className = 'badge badge-warning';
+      break;
+  case (currentUvi <=7):
+    uvIndex.className = 'badge badge-danger';
+      break;
+  default:
+    uvIndex.className = 'badge text-light';
+    uvIndex.setAttribute('style', 'background-color: #553C7B');
+}
+}
+
 // Display 5-day forecast
 
 function fiveDayForecast(daily) {
@@ -88,12 +93,15 @@ var saveCity = function () {
   } else {
     localStorage.setItem("City", enterCity);
   }
+
+  
+
 };
 
 //EVENT LISTENERS
 //set up event listener on the search button when enter a city
 searchBox.addEventListener("click", function () {
-  saveCity();
+  
   fetch(
     "https://api.openweathermap.org/data/2.5/weather?q=" +
       enterCity.value +
@@ -126,6 +134,7 @@ searchBox.addEventListener("click", function () {
           console.log("Getting One Call data", oneCallData);
           displayCurrentWeather(oneCallData.current);
           fiveDayForecast(oneCallData.daily); // calling function current and daily forecast
+          saveCity();
         });
     })
 
