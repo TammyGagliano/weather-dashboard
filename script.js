@@ -11,6 +11,7 @@ var clearHistory = document.getElementById("clear-history");
 var forecastFiveDay = document.getElementById("forecast");
 var icon = document.getElementById("weather-icon");
 var cityName = document.getElementById("city-name");
+var currentDate = document.getElementById("currentdate");
 
 // Assigning a unique API to a variable
 var APIKey = "eceb814eda4b8860bda912a28ff8535f";
@@ -20,12 +21,13 @@ var displayName = "";
 
 function displayCurrentWeather(current) {
   console.log("Display current weather", current);
-  document.getElementById("city-name").innerHTML =
-    +" " + new Date(current.dt * 1000).toLocaleString();
+document.getElementById("city-name").innerHTML =
+   +" " + new Date(current.dt * 1000).toLocaleString();
+
   document.getElementById("temperature").innerHTML =
-    "Temperature: " + current.temp + "F";
+    "Temperature: " + current.temp + "&#8457;";
   document.getElementById("humidity").innerHTML =
-    "Humidity: " + current.humidity + "%";
+    "Humidity: " + current.humidity + "&#37;";
   document.getElementById("wind-speed").innerHTML =
     "Wind Speed: " + current.wind_speed + "MPH";
   document.getElementById("UV-index").innerHTML = "UV Index: " + current.uvi;
@@ -37,13 +39,11 @@ function displayCurrentWeather(current) {
     );
   //console.log(current.uvi);
 
-
-// Get UV Index
 // When UV Index is good, shows green, when ok shows yellow, when bad shows red
 
 var uvIndex = document.querySelector('#UV-index')
 var currentUvi = current['uvi'];
-uvIndex.textContent = current.uvi;
+uvIndex.textContent = currentUvi;
 
 switch (true) {
   case (currentUvi <= 2):
@@ -65,6 +65,8 @@ switch (true) {
 
 function fiveDayForecast(daily) {
   for (i = 0; i < 5; i++) {
+    
+    
     //document.getElementById('day' + i).children[0].innerHTML= daily[i].dt * 1000;
     document.getElementById("day" + i).children[1].innerHTML =
       "<img src='" +
@@ -73,9 +75,9 @@ function fiveDayForecast(daily) {
       "@2x.png" +
       "'>";
     document.getElementById("day" + i).children[2].innerHTML =
-      daily[i].temp.day;
+      daily[i].temp.day + " &#8457;";
     document.getElementById("day" + i).children[3].innerHTML =
-      daily[i].humidity;
+      daily[i].humidity + " &#37;";
 
     // console.log(daily[i].temp.day);
   }
@@ -84,19 +86,27 @@ function fiveDayForecast(daily) {
 // Save history from local storage
 
 var saveCity = function () {
-  var enterCity = document.getElementById("enter-city").value;
-  if (localStorage.getItem("City")) {
-    localStorage.setItem(
-      "City",
-      localStorage.getItem("City") + "," + enterCity
-    );
-  } else {
-    localStorage.setItem("City", enterCity);
-  }
-
-  
-
+  var searchHistory = document.getElementById("enter-city").value;
+  JSON.parse(window.localStorage.getItem(searchHistory));
+  localStorage.setItem("searchHistory",JSON.stringify(searchHistory)); //convert to string
 };
+
+// Append city to search area 
+
+//function listCity() { //retrieves items in the localStorage
+//  console.log("list city");
+//   var key = document.getElementById('retrieveKey').value;
+//   var records = window.localStorage.getItem(key);
+//   var paragraph = document.createElement("p");
+//   var infor = document.createTextNode(records);
+//   paragraph.appendChild(infor);
+//   var element = document.getElementById("retrieve");
+//   element.appendChild(paragraph);
+// }
+
+
+
+
 
 //EVENT LISTENERS
 //set up event listener on the search button when enter a city
@@ -148,4 +158,3 @@ searchBox.addEventListener("click", function () {
 clearHistory.addEventListener("click", function () {
   localStorage.clear();
 });
-
