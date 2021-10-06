@@ -83,6 +83,27 @@ function fiveDayForecast(daily) {
   }
 }
 
+var buildSearchHistory = function () {
+  // get search history from local storage
+  var searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+  if (searchHistory == null) {
+      // if the search history local variable does not exist then generate the left column with common locations
+      searchHistory = [];
+      localStorage.setItem("searchHistory",JSON.stringify(searchHistory));
+  }
+  var groupContainer = $(".list-group");
+  groupContainer.html("");
+  for (i in searchHistory) {
+      // generate a list group item for each city in search history
+      var buttonEL = $("<button>")
+          .addClass("list-group-item list-group-item-action")
+          .attr("id", "enter-city-list")
+          .attr("type", "button")
+          .text(searchHistory[i]);
+      groupContainer.append(buttonEl);
+  }
+};
+
 // Save history from local storage
 
 var saveCity = function () {
@@ -90,20 +111,6 @@ var saveCity = function () {
   JSON.parse(window.localStorage.getItem(searchHistory));
   localStorage.setItem("searchHistory",JSON.stringify(searchHistory)); //convert to string
 };
-
-// Append city to search area 
-
-//function listCity() { //retrieves items in the localStorage
-//  console.log("list city");
-//   var key = document.getElementById('retrieveKey').value;
-//   var records = window.localStorage.getItem(key);
-//   var paragraph = document.createElement("p");
-//   var infor = document.createTextNode(records);
-//   paragraph.appendChild(infor);
-//   var element = document.getElementById("retrieve");
-//   element.appendChild(paragraph);
-// }
-
 
 
 
