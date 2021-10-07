@@ -25,15 +25,13 @@
                 <h2 class="mt-1">Search for a City:</h2>
                 <div class="input-group mb-3">
                     <input id="enter-city" type="text" class="form-control" placeholder="Enter a city" aria-label="Enter a city">
-                    <div class="input-group-append">
+                    <div>
                         <button class="btn btn-primary" type="button" id="search-button">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
                 </div>
-                <div class="list-group"></div>
-                <button class="btn btn-primary mb-3" type="button" id="clear-history">Clear history</button>
-                <form id="history"></form>
+                <div id="saved-searches" class="list-group"></div>
             </div>
 
 
@@ -95,6 +93,8 @@
             </div>
     
     <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     
 </body>
 </html>
