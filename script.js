@@ -21,8 +21,12 @@ var displayName = "";
 
 function displayCurrentWeather(current) {
   console.log("Display current weather", current);
-document.getElementById("city-name").innerHTML =
-   +" " + new Date(current.dt * 1000).toLocaleString();
+  // document.getElementById("city-name").innerHTML =
+  //   +" " + new Date(current.dt * 1000).toLocaleString();
+
+  var currentDate = moment().format('M/D/YYYY');
+  var date = document.getElementById('currentDay');
+  currentdate.innerHTML = currentDate;
 
   document.getElementById("temperature").innerHTML =
     "Temperature: " + current.temp + "&#8457;";
@@ -39,35 +43,34 @@ document.getElementById("city-name").innerHTML =
     );
   //console.log(current.uvi);
 
-// When UV Index is good, shows green, when ok shows yellow, when bad shows red
+  // When UV Index is good, shows green, when ok shows yellow, when bad shows red
 
-var uvIndex = document.querySelector('#UV-index')
-var currentUvi = current['uvi'];
-uvIndex.textContent = currentUvi;
+  var uvIndex = document.querySelector("#UV-index");
+  var currentUvi = current["uvi"];
+  uvIndex.textContent = currentUvi;
 
-switch (true) {
-  case (currentUvi <= 2):
-    uvIndex.className = 'badge badge-success';
+  switch (true) {
+    case currentUvi <= 2:
+      uvIndex.className = "badge badge-success";
       break;
-  case (currentUvi <= 5):
-    uvIndex.className = 'badge badge-warning';
+    case currentUvi <= 5:
+      uvIndex.className = "badge badge-warning";
       break;
-  case (currentUvi <=7):
-    uvIndex.className = 'badge badge-danger';
+    case currentUvi <= 7:
+      uvIndex.className = "badge badge-danger";
       break;
-  default:
-    uvIndex.className = 'badge text-light';
-    uvIndex.setAttribute('style', 'background-color: #553C7B');
-}
+    default:
+      uvIndex.className = "badge text-light";
+      uvIndex.setAttribute("style", "background-color: #553C7B");
+  }
 }
 
 // Display 5-day forecast
 
 function fiveDayForecast(daily) {
   for (i = 0; i < 5; i++) {
-    
-    
-    //document.getElementById('day' + i).children[0].innerHTML= daily[i].dt * 1000;
+    document.getElementById("day" + i).children[0].innerHTML =
+      daily[i].dt * 1000;
     document.getElementById("day" + i).children[1].innerHTML =
       "<img src='" +
       "http://openweathermap.org/img/wn/" +
@@ -87,20 +90,20 @@ var buildSearchHistory = function () {
   // get search history from local storage
   var searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
   if (searchHistory == null) {
-      // if the search history local variable does not exist then generate the left column with common locations
-      searchHistory = [];
-      localStorage.setItem("searchHistory",JSON.stringify(searchHistory));
+    // if the search history local variable does not exist then generate the left column with common locations
+    searchHistory = [];
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
   }
   var groupContainer = $(".list-group");
   groupContainer.html("");
   for (i in searchHistory) {
-      // generate a list group item for each city in search history
-      var buttonEL = $("<button>")
-          .addClass("list-group-item list-group-item-action")
-          .attr("id", "enter-city-list")
-          .attr("type", "button")
-          .text(searchHistory[i]);
-      groupContainer.append(buttonEl);
+    // generate a list group item for each city in search history
+    var buttonEL = $("<button>")
+      .addClass("list-group-item list-group-item-action")
+      .attr("id", "enter-city-list")
+      .attr("type", "button")
+      .text(searchHistory[i]);
+    groupContainer.append(buttonEl);
   }
 };
 
@@ -109,16 +112,13 @@ var buildSearchHistory = function () {
 var saveCity = function () {
   var searchHistory = document.getElementById("enter-city").value;
   JSON.parse(window.localStorage.getItem(searchHistory));
-  localStorage.setItem("searchHistory",JSON.stringify(searchHistory)); //convert to string
+  //push
+  localStorage.setItem("searchHistory", JSON.stringify(searchHistory)); //convert to string
 };
-
-
-
 
 //EVENT LISTENERS
 //set up event listener on the search button when enter a city
 searchBox.addEventListener("click", function () {
-  
   fetch(
     "https://api.openweathermap.org/data/2.5/weather?q=" +
       enterCity.value +
