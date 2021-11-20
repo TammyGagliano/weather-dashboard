@@ -21,7 +21,7 @@ var displayName = "";
 // NEED TO USE THIS FOR DATE // var date = moment().format(" MM/DD/YYYY");
 
 function displayCurrentWeather(current) {
-  //event.preventDefault();
+  //e.preventDefault();
   console.log("Display current weather", current);
 
   var userCity = enterCity.value.trim();
@@ -78,6 +78,8 @@ function displayCurrentWeather(current) {
 
 function fiveDayForecast(daily) {
 
+  
+
   for (i = 0; i < 5; i++) {
     document.getElementById("day" + i).children[0].innerHTML =
       daily[i].dt * 1000;
@@ -93,6 +95,9 @@ function fiveDayForecast(daily) {
       daily[i].humidity + " &#37;";
     // console.log(daily[i].temp.day);
   }
+
+  displayCurrentWeather(oneCallData.current);
+
 }
 
 var cities = [];

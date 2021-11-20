@@ -1,101 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./styles/jass.css" />
     <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  </head>
 
-</head>
-<body>
+  <body>
+    <header
+      class="container-fluid text-center text-white bg-dark p-2 weather-header"
+    >
+      <h1>Weather Dashboard</h1>
+    </header>
 
-    <div class="container-fluid bg-dark p-3">
-        <div class="container">
-            <h1 class="text-center text-white">Weather Dashboard</h1>
-    </div>
-    </div>
-
-    <!-- Start container -->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3 bg-light pt-3 pb-3">
-                <h2 class="mt-1">Search for a City:</h2>
-                <div class="input-group mb-3">
-                    <input id="enter-city" type="text" class="form-control" placeholder="Enter a city" aria-label="Enter a city">
-                    <div>
-                        <button class="btn btn-primary" type="button" id="search-button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+    <!-- max-width for ultra wide resolutions -->
+    <div class="container-fluid" style="max-width: 1400px">
+      <div class="row">
+        <aside class="col-lg-3 pb-3">
+          <h2 id="form-heading" class="mt-1 h3 form-label">
+            Search for a City:
+          </h2>
+          <form id="search-form" class="form">
+            <div class="form-inline form-group">
+              <div class="input-group">
+                <input
+                  class="form-input weather-search"
+                  type="text"
+                  id="search-input"
+                  placeholder="San Diego"
+                  aria-labelledby="form-heading"
+                  aria-controls="today forecast"
+                />
+                <div class="input-group-append">
+                  <button
+                    type="submit"
+                    class="btn search-button"
+                    id="search-button"
+                    aria-label="submit search"
+                  >
+                    Search
+                  </button>
+                  <hr class="hr weather-hr" />
                 </div>
-                <div id="saved-searches" class="list-group"></div>
+              </div>
             </div>
+          </form>
+          <div class="list-group" id="history"></div>
+        </aside>
 
+        <div class="col-lg-9 pb-3">
+          <section
+            id="today"
+            class="mt-3"
+            role="region"
+            aria-live="polite"
+          ></section>
+          <section
+            id="forecast"
+            class="row mt-3"
+            role="region"
+            aria-live="polite"
+          ></section>
+        </div>
+      </div>
+    </div>
 
-            <!-- Start second column - Current Weather -->
-            <div class="col-lg-9">
-                <div class="row mr-0">
-                    <div class="col-lg-11 card m-3" id="today-weather">
-                        <div class="card-body">
-                            <h2 id="city-name" class="city-name align-middle"></h2>
-                            <span class="px-3" id="currentdate">MM/DD/YY</span>
-                            <img id="weather-icon" alt="weather icon">
-                            <p id="temperature">Temperature: </p>
-                            <p id="humidity">Humidity: </p>
-                            <p id="wind-speed">Wind speed: </p>
-                            <p id="UV-index">UV-Index: </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row" id="fiveday-header">
-                    <div class="col-9">
-                        <h3  id="forecast">5-Day Forecast</h3>
-                    </div>
-                </div>
-                <div class="row days">
-                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded lone-day" id="day0">
-                        <div class="date"></div>
-                        <div class="icon"></div>
-                        <div class="temp"></div>
-                        <div class="humid"></div>
-                    </div>
-                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded lone-day" id="day1">
-                        <div class="date"></div>
-                        <div class="icon"></div>
-                        <div class="temp"></div>
-                        <div class="humid"></div>
-                    </div>
-                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded lone-day" id="day2">
-                        <div class="date"></div>
-                        <div class="icon"></div>
-                        <div class="temp"></div>
-                        <div class="humid"></div>
-                    </div>
-                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded lone-day" id="day3">
-                        <div class="date"></div>
-                        <div class="icon"></div>
-                        <div class="temp"></div>
-                        <div class="humid"></div>
-                    </div>
-                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded lone-day" id="day4">
-                        <div class="date"></div>
-                        <div class="icon"></div>
-                        <div class="temp"></div>
-                        <div class="humid"></div>
-                    </div>
-                </div>    
-            </div>     
-            </div>       
-            </div>
-    
+    <!-- use day.js to easily format dates -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"
+      integrity="sha512-0fcCRl828lBlrSCa8QJY51mtNqTcHxabaXVLPgw/jPA5Nutujh6CbTdDgRzl9aSPYW/uuE7c4SffFUQFBAy6lg=="
+      crossorigin="anonymous"
+    ></script>
+    <script 
+      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/utc.min.js" 
+      integrity="sha512-m00bfmYnAl3plEBlQfeQUhw/U2uvmw29V2+jxSWpAjankMWS+zAsjezbKWDEJNXqWq9o9qQZSOiA2RKDpa4D5w==" 
+      crossorigin="anonymous"
+    ></script>
+    <script 
+      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/timezone.min.js" 
+      integrity="sha512-pslqxxHAYPCxaSeFSmXXxDkLejD5dbFVC66aiVq0z4v7VTJBU+wqcG1OpNh4p3MjS2D6NCwz/H2QmSc7dXxryg==" 
+      crossorigin="anonymous"
+    ></script>
     <script src="script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    
-</body>
+  </body>
 </html>
-
